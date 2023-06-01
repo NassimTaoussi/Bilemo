@@ -1,0 +1,15 @@
+@startuml
+actor Client #salmon
+control API #4169E1
+database Database #98FB98
+
+Client --> API : GET /api/users/{id}
+API --> Database : Requête pour trouver le user
+Database -> API: Retourne les données
+
+alt Si user existant
+  API --> Client : 200 : OK
+else
+  API --> Client : 404 : Not Found
+end
+@enduml

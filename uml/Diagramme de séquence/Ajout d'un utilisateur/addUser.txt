@@ -1,0 +1,18 @@
+@startuml
+
+actor Client #salmon
+control API #4169E1
+database Database #98FB98
+
+Client --> API : POST/api/users/
+
+API --> API : Vérification de la requête
+
+alt Si les données sont valide
+  API --> Database : Insertion en base de donnéee
+  API --> Client : 201 : Created
+else
+  API --> Client : 422 : Unprocessable entity
+end
+
+@enduml

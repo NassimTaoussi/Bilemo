@@ -1,0 +1,38 @@
+@startuml
+
+Client "1" <--> "*" User
+
+class User #F08080 {
+ int id
+ String username
+ String email
+ String password
+ DateTime createdAt
+ Client client
+}
+
+class Phone #FAEBD7 {
+ int id
+ String brand
+ String model
+ String color
+ String description
+ String size
+ String weight
+ int price
+ String photo
+ DateTime createdAt
+ DateTime updatedAt
+}
+
+class Client #87CEFA {
+ int id
+ String username
+ String email
+ String password
+ DateTime createdAt
+ String companyName
+ User users
+}
+
+@enduml

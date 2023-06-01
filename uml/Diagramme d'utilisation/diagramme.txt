@@ -1,0 +1,16 @@
+@startuml
+
+left to right direction
+:Client: #pink;line:red;line.bold;text:red
+
+rectangle "BileMo" {
+
+Client--> (Consulter un produit) #lightseagreen;line:lightseagreen;line.bold;text:lightseagreen
+Client--> (Consulter la liste des produits) #lightseagreen;line:lightseagreen;line.bold;text:lightseagreen
+
+Client--> (Consulter le détail d'un utilisateur) #lightseagreen;line:lightseagreen;line.bold;text:lightseagreen
+Client--> (Consulter la liste des utilisateurs) #lightseagreen;line:lightseagreen;line.bold;text:lightseagreen
+Client--> (Ajout d'un utilisateur) #lightseagreen;line:lightseagreen;line.bold;text:lightseagreen
+Client--> (Supprimer un utilisateur) #lightseagreen;line:lightseagreen;line.bold;text:lightseagreen
+
+}

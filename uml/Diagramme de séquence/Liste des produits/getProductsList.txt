@@ -1,0 +1,12 @@
+@startuml
+
+actor Client #salmon
+control API #4169E1
+database Database #98FB98
+
+Client --> API : GET /api/products
+API --> Database : Requête en base de donnéee
+Database -> API: Retourne la liste
+API --> Client : 200 : OK
+
+@enduml

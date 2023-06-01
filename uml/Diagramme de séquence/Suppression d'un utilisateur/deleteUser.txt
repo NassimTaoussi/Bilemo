@@ -1,0 +1,17 @@
+@startuml
+
+actor Client #salmon
+control API #4169E1
+database Database #98FB98
+
+Client --> API : DELETE /api/users/{id}
+API --> Database : Requête pour trouver le user
+Database --> API : Retourne les données
+alt Si user existant
+  API --> Database : Suppression en base de donnéee
+  API --> Client : 204 : No content
+else
+  API --> Client : 404 : Not Found
+end
+
+@enduml
