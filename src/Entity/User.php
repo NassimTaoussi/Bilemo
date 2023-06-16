@@ -10,34 +10,42 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
+use App\State\UserStateProcessor;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
     operations: [
         new Get(),
-        new Post(),
+        new Post(processor: UserStateProcessor::class),
         new Delete(),
         new GetCollection()
-    ]
+    ],
+    normalizationContext: ['groups' => ['read']],
+    denormalizationContext: ['groups' => ['write']],
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['read'])]
     private ?int $id = null;
 
+    #[Groups(['read', 'write'])]
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
+    #[Groups(['read', 'write'])]
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
+    #[Groups(['read'])]
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
