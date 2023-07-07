@@ -14,6 +14,9 @@ use App\State\UserStateProcessor;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+Use App\Filter\UsersFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ApiResource(
@@ -25,7 +28,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     normalizationContext: ['groups' => ['read']],
     denormalizationContext: ['groups' => ['write']],
+    filters: ['user.date_filter']
 )]
+#[ApiFilter(UsersFilter::class)]
+#[UniqueEntity('email', message: 'Un utilisateur avec cet email existe déjà')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -36,7 +42,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(length: 255)]
-    private ?string $username = null;
+    private ?string $firstName = null;
+
+    #[Groups(['read', 'write'])]
+    #[ORM\Column(length: 255)]
+    private ?string $lastName = null;
 
     #[Groups(['read', 'write'])]
     #[ORM\Column(length: 255, unique: true)]
@@ -63,14 +73,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->username;
+        return $this->firstName;
     }
 
-    public function setUsername(string $username): self
+    public function setFirstName(string $firstName): self
     {
-        $this->username = $username;
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -125,7 +147,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
     }
 
     public function getSalt(): ?string

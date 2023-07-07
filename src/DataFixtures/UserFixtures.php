@@ -19,7 +19,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         for ($i = 0; $i < 100; $i++) {
             $user = new User();
-            $user->setUsername('User-'. $i);
+            $user->setFirstName('Firstname-'. $i);
+            $user->setLastName('Lastname-'. $i);
             $user->setEmail('user-' . $i . '@yopmail.com');
             $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
             $user->setCreatedAt(new \DateTimeImmutable());

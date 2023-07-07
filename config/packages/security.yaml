@@ -11,7 +11,7 @@ security:
         users:
             entity:
                 class: App\Entity\Client
-                property: username
+                property: email
             # document:
             #    class: App\Document\User
             #    property: email
@@ -24,7 +24,7 @@ security:
             provider: users
             json_login:
                 check_path: auth # The name in routes.yaml is enough for mapping
-                username_path: username
+                username_path: email
                 password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
