@@ -26,11 +26,12 @@ final class CurrentClientExtension implements QueryCollectionExtensionInterface,
 
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass): void
     {
-        if (Offer::class !== $resourceClass || $this->security->isGranted('ROLE_ADMIN') || null === $user = $this->security->getUser() {
+        if (User::class !== $resourceClass)  {
             return;
         }
+        $client = $this->security->getUser();
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $queryBuilder->andWhere(sprintf('%s.user = :current_user', $rootAlias));
-        $queryBuilder->setParameter('current_user', $user->getId());
+        $queryBuilder->andWhere(sprintf('%s.client = :current_client', $rootAlias));
+        $queryBuilder->setParameter('current_client', $client);
     }
 }
