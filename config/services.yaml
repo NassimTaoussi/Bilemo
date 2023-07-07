@@ -26,3 +26,8 @@ services:
         bind:
             $persistProcessor: '@api_platform.doctrine.orm.state.persist_processor'
             $removeProcessor: '@api_platform.doctrine.orm.state.remove_processor'
+    
+    App\Doctrine\CurrentClientExtension:
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection }
+            - { name: api_platform.doctrine.orm.query_extension.item }
