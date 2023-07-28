@@ -14,8 +14,6 @@ use App\State\UserStateProcessor;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
-Use App\Filter\UsersFilter;
-use ApiPlatform\Metadata\ApiFilter;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -30,7 +28,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     denormalizationContext: ['groups' => ['write']],
     filters: ['user.date_filter']
 )]
-#[ApiFilter(UsersFilter::class)]
+
 #[UniqueEntity('email', message: 'Un utilisateur avec cet email existe déjà')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
