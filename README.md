@@ -72,3 +72,9 @@ Now you should be ready to launch the dev webserver using
 ```
 symfony server:start -d
 ```
+
+## Start using the API
+
+To see the documentation of the list of available endpoints go to this url
+
+http://127.0.0.1:8000/api/docs
